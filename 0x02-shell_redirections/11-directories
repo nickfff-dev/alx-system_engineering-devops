@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -AlR . | wc -l
+ls -lRA  | less | grep -h '^d' | wc -l
