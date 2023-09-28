@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # script that displays clock
 
-allfiles="$(ls -1 .)"
-for filename in $allfiles
+for filename in *-*
 do
-    echo "$filename"
+    echo "${filename#*-}"
 done
