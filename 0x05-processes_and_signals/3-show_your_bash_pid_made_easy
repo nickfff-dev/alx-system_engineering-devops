@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# list pids of processes related to bash only
+
+pgrep -lx bash
