@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# script that displays To infinity and beyond indefinitely
+# With a sleep 2 in between each iteration and a trap
+echo $$ > /var/run/myscript.pid
+exit_on_signal_sigquit () {
+    rm /var/run/myscript.pid
+    exit 0
+}
+exit_on_signal_sigterm () {
+    echo "I hate the kill command"
+    rm /var/run/myscript.pid
+    exit 0
+}
+trap exit_on_signal_sigterm SIGTERM
+trap "echo 'Y U no love me?!'" SIGINT
+trap exit_on_signal_sigquit SIGQUIT
+mytext="To infinity and beyond"
+while true
+do
+    echo "$mytext"
+    sleep 2
+done
