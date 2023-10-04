@@ -2,7 +2,7 @@
 
 txt = ARGV[0]
 
-txt.scan(/^h.n$/) do |match|
+txt.scan(/^h\wn$/) do |match|
   print match
 end
 puts
