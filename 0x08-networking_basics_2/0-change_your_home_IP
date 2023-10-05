@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Change IP addresses for localhost and facebook.com
+
+
+
+# Define the new DNS mappings
+LOCALHOST_IP="127.0.0.2"
+FACEBOOK_IP="8.8.8.8"
+
+# Backup the original hosts file
+cp /etc/hosts /etc/hosts.bak
+
+# Copy the hosts file to a temporary location
+cp /etc/hosts ~/hosts.new
+
+# Modify the hosts file in the temporary location
+sed -i "s/^127.0.0.1[[:space:]]localhost.*/$LOCALHOST_IP localhost/" ~/hosts.new
+
+# Check if facebook.com is already in the hosts file
+if grep -q "facebook.com" ~/hosts.new; then
+    # If it is, replace the line
+    sed -i "s/^.*[[:space:]]facebook.com/$FACEBOOK_IP facebook.com/" ~/hosts.new
+else
+    # If it's not, add a new line
+    echo "$FACEBOOK_IP facebook.com" >> ~/hosts.new
+fi
+
+# Copy the modified hosts file back to /etc/hosts
+cp -f ~/hosts.new /etc/hosts
