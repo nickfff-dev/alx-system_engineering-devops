@@ -2,8 +2,8 @@
 # Ping an IP address
 
 if [ "$#" -ne 1 ]; then
-    echo "Usage: $(basename $0) {IP_ADDRESS}"
+    echo "Usage: $(basename "$0") {IP_ADDRESS}"
     exit 1
 fi
 
-ping -c 5 $1
+ping -c 5 "$1"
