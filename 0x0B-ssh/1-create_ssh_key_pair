@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 #this script generates an ssh keypair and a passphrase
 
 ssh-keygen -q -b 4096 -t rsa -N "betty" -f school
