@@ -1,0 +1,23 @@
+Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.15.0-1021-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Nov 25 23:47:38 UTC 2023
+
+  System load:  0.08              Processes:             98
+  Usage of /:   7.9% of 19.20GB   Users logged in:       0
+  Memory usage: 22%               IPv4 address for eth0: 10.247.89.234
+  Swap usage:   0%
+
+
+0 updates can be applied immediately.
+
+
+The list of available updates is more than a week old.
+To check for new updates run: sudo apt update
+New release '22.04.3 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
