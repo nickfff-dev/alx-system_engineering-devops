@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#script that starts apache
+echo "Hello Holberton" > /var/www/html/index.html
+service apache2 restart
