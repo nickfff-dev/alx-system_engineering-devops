@@ -1,9 +1,5 @@
 # This manifest installs and configures nginx
 
-  package { 'nginx':
-  ensure => 'present',
-  }
-
   exec { 'apt-update':
     command  => 'sudo /usr/bin/apt-get update',
     provider => shell,
@@ -23,7 +19,7 @@
 
   exec { 'add-redirect':
     command  => 'sudo sed -i "s/server_name _;/server_name _;\\n\\trewrite ^\/redirect_me https:\/\/stackoverflow.com permanent;/"
-    /etc/nginx/sites-available/default',
+    /etc/nginx/sites-enabled/default',
     provider => shell,
     require  => Exec['create-index'],
   }
@@ -36,7 +32,7 @@
 
   exec { 'configure-nginx':
     command  => 'sudo sed -i "s/listen 80 default_server;/listen 80 default_server;\\n\\terror_page 404 \/404.html;\\n\\tlocation =
-    \/404.html {\\n\\t\\troot \/var\/www\/html;\\n\\t}/" /etc/nginx/sites-available/default',
+    \/404.html {\\n\\t\\troot \/var\/www\/html;\\n\\t}/" /etc/nginx/sites-enabled/default',
     provider => shell,
     require  => Exec['create-404'],
   }
