@@ -1,3 +1,4 @@
+# This manifest installs and configures nginx
 class nginx_setup {
 
   exec { 'apt-update':
