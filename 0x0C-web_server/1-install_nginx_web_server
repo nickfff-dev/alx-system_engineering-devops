@@ -6,7 +6,7 @@ apt-get install nginx -y
 ufw allow 'Nginx HTTP'
 
 # Create a file with a specific string
-echo "hello world" > /var/www/html/index.html
+echo "Hello World!" > /var/www/html/index.html
 
 # Restart Nginx to apply changes (without using systemctl)
 service nginx restart
