@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
-# Script that configures a new Ubuntu machine to respect above requirements
-sudo apt-get update
-
-# Install Nginx if it not already installed
-if ! nginx -v &> /dev/null ; then
-    sudo apt-get -y install nginx
-fi
-
+#script that configures a new Ubuntu machine to respect above requirements
 sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 sudo sed -i 's/listen 80 default_server;/listen 0.0.0.0:80 default_server;/' /etc/nginx/sites-enabled/default
 sudo /etc/init.d/nginx restart
