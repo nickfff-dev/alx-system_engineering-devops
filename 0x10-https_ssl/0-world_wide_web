@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Function to print subdomain info
+print_info() {
+    local domain=$1
+    local sub=$2
+    local record=$(dig +short $sub.$domain | awk 'NR==1{print $1}')
+    echo "The subdomain $sub is a A record and points to $record"
+}
+
+# Check if subdomain is provided
+if [ -z "$2" ]; then
+    # Print info for default subdomains
+    for sub in www lb-01 web-01 web-02; do
+        print_info $1 $sub
+    done
+else
+    # Print info for specified subdomain
+    print_info $1 $2
+fi
