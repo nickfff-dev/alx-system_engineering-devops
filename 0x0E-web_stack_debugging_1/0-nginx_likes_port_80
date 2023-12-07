@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Script that configures a new Ubuntu machine to respect above requirements
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+# Restart nginx to apply changes
+sudo etc/init.d/nginx restart
