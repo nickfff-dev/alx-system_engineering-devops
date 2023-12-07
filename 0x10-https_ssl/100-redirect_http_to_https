@@ -48,7 +48,8 @@ listen stats
         
 frontend nickson-frontend-http
     bind *:80
-    http-request set-header X-Forwarded-Proto http
+    mode http
+    redirect scheme https code 301 if !{ ssl_fc }
     default_backend nickson-backend
 
 frontend nickson-frontend-https
@@ -58,6 +59,5 @@ frontend nickson-frontend-https
 
 backend nickson-backend
     balance roundrobin
-    redirect scheme https if !{ ssl_fc }
     server 335154-web-01 52.3.245.73:80 check
     server 335154-web-02 18.204.20.55:80 check
