@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# This script generates a MySQL dump and creates a compressed archive out of it.
+
+# Check if password is supplied
+if [ -z "$1" ]
+then
+  echo "Please provide the MySQL root password as an argument."
+  exit 1
+fi
+
+# Set the password
+PASSWORD="$1"
+
+# Get the current date
+DATE=$(date +%d-%m-%Y)
+
+# Generate the MySQL dump
+mysqldump -u root -p"$PASSWORD" --all-databases > backup.sql
+
+# Compress the dump to a tar.gz archive
+tar -czvf "$DATE".tar.gz backup.sql
