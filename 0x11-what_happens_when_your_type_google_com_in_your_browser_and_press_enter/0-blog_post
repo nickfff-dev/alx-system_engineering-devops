@@ -1,0 +1,35 @@
+The following article gives a technical description of what happens when you enter a URL in a browser and submit it. It's important to understand how networks like the Internet work, as we are fetching a resource from the Internet.
+
+A URL or uniform resource locator is a reference to a resource that specifies the exact location of the reference on the device in a network. The structure of a URL includes a protocol, which in our case is HTTPS, and a Fully Qualified Domain Name (FQDN), which is “www.google.com.” 
+
+The Internet Protocol assigns IP addresses to devices on a network, while the Domain Name System manages the translation of domain names to IP addresses. The TCP Transmission Control Protocol manages how packets of data are sent and received between nodes in a network.
+
+When you type a Google home page URL in the browser address bar and submit it, the browser sends a query to a DNS resolver to translate the domain name to an IP address. Once the browser has the IP address for www.google.com, it sends a request for a secure TCP connection to the Google server, which responds with an SSL certificate containing the public key required to decrypt and encrypt messages. 
+
+After the browser receives the certificate, it confirms its authenticity and uses the public key from the certificate to encrypt a secret. Both sides use this secret to generate a session key that will be used by TCP to sign messages between them, and a secure TCP connection is established. The browser then sends an HTTP request to the Google servers for the Google home page.
+
+Given the high number of requests that Google receives, they might be using load balancing to keep up with the demand. Load balancing is the process of dividing a set of tasks over a set of resources for optimal performance. In this case, Google has likely set up identical web servers that serve the same home page and use a load-balancing algorithm or device to assign incoming requests to web servers using predefined methods to achieve optimal performance.
+
+Given the sensitive nature of data in Google servers, Google might run the load balancer behind a firewall. A firewall is a system that manages access to a network and protects it from unauthorized access.
+
+The Internet Protocol is responsible for assigning IP addresses to devices on a network.
+An IP address is a set of numeric labels that serve as an address to a device on the network. Domain names on the other hand are text labels that can be associated with a numeric IP address. The domain name www.google.com can be mapped to a numeric IP address that identifies the device responsible for serving our request. The Domain Name System is a distributed hierarchical system that maintains domain names and manages the translation of domain names to IP addresses.
+
+The TCP Transmission Control Protocol is a protocol of the transport layer that manages how packets of data are sent and received between nodes in a network. TCP manages this process by providing a reliable connection that acknowledges receipt and confirms existence, error checking, packet encrypting, and decrypting using SSL keys. TCP might divide packets into chunks for faster transmission. As HTTP manages the type of content that will be sent, TCP manages the reliable process of encrypting, sending the content, decrypting, receiving the content, and acknowledging receipt.
+
+
+
+
+
+After understanding how the internet names devices and manages data transmission between them, now we can begin to look into what happens when we type the Google home page URL in the browser address bar and submit. The first process is the translation of the domain name “www.google.com” to an IP address that can be used to identify and communicate with a server on the internet. Translation is initiated by the browser by sending a query to a DNS resolver in the local operating system. The DNS resolver almost invariably holds a cache of recent queries and if a match is found, the resolver responds to the browser with the IP address. If there's no match the resolver will proceed to query the domain name servers hierarchy till the successful translation of our domain www.google.com to its relevant IP address.
+
+Now that the browser has the IP address for www.google.com, the browser sends a request for a secure TCP connection to the Google server which in turn responds with an SSL certificate that contains the public key required to decrypt and encrypt messages. Once the browser receives the certificate from Google servers, it confirms its authenticity and if genuine uses the public key from the certificate to encrypt a secret and then shares this secret with the Google servers. Both sides use this secret to generate a session key which will be used by TCP to sign messages between them, and a secure TCP connection is established. This process is called a handshake. After the secure connection is established, the browser sends an HTTP request to the Google servers for the Google home page. 
+
+How the request is processed depends on the design of the Google system. Given the high number of requests that Google receives, It is likely that they are using load balancing to keep up with the demand. Load balancing is the process of dividing a set of tasks over a set of resources for optimal performance. In this case, Google has likely set up identical web servers that serve the same home page and use a load-balancing algorithm or device to assign incoming requests to web servers using predefined methods to achieve optimal performance.
+
+Given the sensitive nature of data in Google servers, Google might run the load balancer behind a firewall. A firewall is a system that monitors and controls incoming and outgoing requests on a network according to a predefined set of rules. Google can use a firewall to scan our request
+for any harmful intent before passing it to the load balancer for assignment to any of the web servers available to serve the Google home page.
+
+The web server that will be assigned the request by the load balancer might have to send a request to an application server for dynamic content that might need to be generated for the Google home page like account information. The application server runs the necessary business logic and sends a query to the database server. The database server processes the query and sends the results back to the application server. The application server sends the generated dynamic content back to the web server. The web server packages this content into an HTTP response.
+
+The HTTP response is sent back to the browser through the load balancer. This response includes the Google home page, which your browser then renders for you to view.
