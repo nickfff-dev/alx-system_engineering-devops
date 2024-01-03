@@ -6,14 +6,17 @@ import requests
 from sys import argv
 
 
-if __name__ == "__main__":
-    """Gather data from an API"""
+def get_tasks_done(employeeId):
+    """Get tasks done"""
     url = "https://jsonplaceholder.typicode.com/"
-    user_id = argv[1]
-    user = requests.get(url + "users/" + user_id).json()
-    todo = requests.get(url + "todos", params={"userId": user_id}).json()
+    user = requests.get(url + "users/{}".format(employeeId)).json()
+    todo = requests.get(url + "todos", params={"userId": employeeId}).json()
     completed = [task.get("title") for task in todo if
                  task.get("completed") is True]
-    print("Employee {} is done with tasks({}/{}):".format(
+    print("Employee {:s} is done with tasks({:d}/{:d}):".format(
         user.get("name"), len(completed), len(todo)))
     [print("\t {}".format(task)) for task in completed]
+
+
+if __name__ == "__main__":
+    get_tasks_done(argv[1])
