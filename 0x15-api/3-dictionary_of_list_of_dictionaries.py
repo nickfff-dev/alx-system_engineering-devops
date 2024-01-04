@@ -14,16 +14,12 @@ if __name__ == "__main__":
     users_res = requests.get("https://jsonplaceholder.typicode.com/users/")
     users = users_res.json()
     for user in users:
-        rows = []
-        for todo in todos:
-            one_todo_dict = {}
-            if user['id'] == todo['userId']:
-                one_todo_dict['username'] = user['username']
-                one_todo_dict['task'] = todo['title']
-                one_todo_dict['completed'] = todo['completed']
-                rows.append(one_todo_dict)
-        all_todos_dict[user['id']] = rows
-
-    with open('todo_all_employees.json', 'w') as jsonfile:
-        json_obj = json.dumps(all_todos_dict)
-        jsonfile.write(json_obj)
+        user_todos_list = []
+        for task in todos:
+            if task.get("userId") == user.get("id"):
+                user_todos_list.append({"username": user.get("username"),
+                                        "task": task.get("title"),
+                                        "completed": task.get("completed")})
+        all_todos_dict[user.get("id")] = user_todos_list
+    with open("todo_all_employees.json", "w") as jsonfile:
+        json.dump(all_todos_dict, jsonfile)

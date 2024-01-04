@@ -13,9 +13,9 @@ if __name__ == "__main__":
     users_res = requests.get("https://jsonplaceholder.typicode.com/users/")
     users = users_res.json()
     for user in users:
-        if user['id'] == int(argv[1]):
-            user_id = user['id']
-            username = user['username']
+        if user.get('id') == int(argv[1]):
+            user_id = user.get('id')
+            username = user.get('username')
     with open(f'{user_id}.csv', 'w', newline='') as csvfile:
         fieldnames = ['USER_ID', 'USERNAME', 'TASK_COMPLETED_STATUS',
                       'TASK_TITLE']
@@ -26,6 +26,6 @@ if __name__ == "__main__":
             if task['userId'] == int(argv[1]):
                 row['USER_ID'] = user_id
                 row['USERNAME'] = username
-                row['TASK_COMPLETED_STATUS'] = task['completed']
-                row['TASK_TITLE'] = task['title']
+                row['TASK_COMPLETED_STATUS'] = task.get('completed')
+                row['TASK_TITLE'] = task.get('title')
                 writer.writerow(row)
