@@ -8,18 +8,25 @@ import requests
 
 if __name__ == "__main__":
     """Gather all tasks from all users"""
-    todos_res = requests.get("https://jsonplaceholder.typicode.com/todos/")
+    todos_url = "https://jsonplaceholder.typicode.com/todos/"
+    users_url = "https://jsonplaceholder.typicode.com/users/"
+    todos_res = requests.get(todos_url)
     todos = todos_res.json()
     all_todos_dict = {}
-    users_res = requests.get("https://jsonplaceholder.typicode.com/users/")
+    users_res = requests.get(users_url)
     users = users_res.json()
     for user in users:
-        user_todos_list = []
-        for task in todos:
-            if task.get("userId") == user.get("id"):
-                user_todos_list.append({"username": user.get("username"),
-                                        "task": task.get("title"),
-                                        "completed": task.get("completed")})
-        all_todos_dict[user.get("id")] = user_todos_list
+        user_id = user.get("id")
+        username = user.get("username")
+        rows = []
+        for todo in todos:
+            new_dict = {}
+            if todo.get("userId") == user_id:
+                new_dict["username"] = username
+                new_dict["task"] = todo.get("title")
+                new_dict["completed"] = todo.get("completed")
+                rows.append(new_dict)
+        all_todos_dict[user_id] = rows
+
     with open("todo_all_employees.json", "w") as jsonfile:
         json.dump(all_todos_dict, jsonfile)
