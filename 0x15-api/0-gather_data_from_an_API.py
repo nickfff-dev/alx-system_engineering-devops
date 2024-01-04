@@ -8,13 +8,13 @@ from sys import argv
 
 def get_tasks_done(employeeId):
     """Get tasks done"""
-    url = "https://jsonplaceholder.typicode.com/"
-    todos = requests.get("https://jsonplaceholder.typicode.com/todos/").json()
+    todos_res = requests.get("https://jsonplaceholder.typicode.com/todos/")
+    todos = todos_res.json()
     completed_tasks = 0
     total_tasks = 0
     tasks = []
-    users = requests.get("https://jsonplaceholder.typicode.com/users/").json()
-
+    users_res = requests.get("https://jsonplaceholder.typicode.com/users/")
+    users = users_res.json()
     for user in users:
         if user.get("id") == int(employeeId):
             username = user.get("name")
