@@ -9,13 +9,26 @@ from sys import argv
 def get_tasks_done(employeeId):
     """Get tasks done"""
     url = "https://jsonplaceholder.typicode.com/"
-    user = requests.get(url + "users/{}".format(employeeId)).json()
-    todo = requests.get(url + "todos", params={"userId": employeeId}).json()
-    completed = [task.get("title") for task in todo if
-                 task.get("completed") is True]
-    print("Employee {:s} is done with tasks({:d}/{:d}):".format(
-        user.get("username"), len(completed), len(todo)))
-    [print("\t {}".format(task)) for task in completed]
+    todos = requests.get("https://jsonplaceholder.typicode.com/todos/").json()
+    completed_tasks = 0
+    total_tasks = 0
+    tasks = []
+    users = requests.get("https://jsonplaceholder.typicode.com/users/").json()
+
+    for user in users:
+        if user.get("id") == int(employeeId):
+            username = user.get("name")
+    for todo in todos:
+        if todo.get("userId") == int(employeeId):
+            total_tasks += 1
+            if todo.get("completed") is True:
+                completed_tasks += 1
+                tasks.append(todo.get("title"))
+    print("Employee {} is done with tasks({}/{}):".format(username,
+                                                          completed_tasks,
+                                                          total_tasks))
+    for task in tasks:
+        print("\t {}".format(task))
 
 
 if __name__ == "__main__":
