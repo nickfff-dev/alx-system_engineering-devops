@@ -9,16 +9,29 @@ from sys import argv
 
 if __name__ == "__main__":
     """Export data to JSON format"""
-    url = "https://jsonplaceholder.typicode.com/"
-    user_id = argv[1]
-    user = requests.get(url + "users/" + user_id).json()
-    todo = requests.get(url + "todos?userId=" + user_id).json()
-    completed = [task for task in todo if task.get("completed") is True]
+    todos_res = requests.get("https://jsonplaceholder.typicode.com/todos/")
+    todos = todos_res.json()
+    users_res = requests.get("https://jsonplaceholder.typicode.com/users/")
+    users = users_res.json()
 
-    data = {user_id: []}
-    for task in completed:
-        data[user_id].append({'task': task.get('title'),
-                              'completed': task.get('completed'),
-                              'username': user.get('name')})
+    for user in users:
+        if user['id'] == int(argv[1]):
+            user_id = user['id']
+            username = user['username']
+
+    rows = []
+
+    for todo in todos:
+        new_dict = {}
+        if todo['userId'] == int(argv[1]):
+            new_dict['task'] = todo['title']
+            new_dict['completed'] = todo['completed']
+            new_dict['username'] = username
+            rows.append(new_dict)
+
+    json_dict = {}
+    json_dict[user_id] = rows
+    json_obj = json.dumps(json_dict)
+
     with open(f'{user_id}.json', 'w') as jsonfile:
-        json.dump(data, jsonfile)
+        jsonfile.write(json_obj)
