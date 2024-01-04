@@ -14,7 +14,7 @@ def get_tasks_done(employeeId):
     completed = [task.get("title") for task in todo if
                  task.get("completed") is True]
     print("Employee {:s} is done with tasks({:d}/{:d}):".format(
-        user.get("name"), len(completed), len(todo)))
+        user.get("username"), len(completed), len(todo)))
     [print("\t {}".format(task)) for task in completed]
 
 
