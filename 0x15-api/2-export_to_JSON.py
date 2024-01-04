@@ -11,27 +11,29 @@ import sys
 if __name__ == "__main__":
     """Export data to JSON format"""
     user_id = sys.argv[1]
-    todos_url = "https://jsonplaceholder.typicode.com/todos/"
-    users_url = "https://jsonplaceholder.typicode.com/users/"
     if user_id.isdigit() is True:
-        todos_res = requests.get(todos_url)
-        todos = todos_res.json()
+        user_url = f"https://jsonplaceholder.typicode.com/users/{user_id}"
+        todos_url = f"{user_url}/todos"
+        tasks = []
         completed_tasks = 0
         total_tasks = 0
-        tasks = []
-        rows = []
-        users_res = requests.get(users_url)
-        users = users_res.json()
-        for user in users:
-            if user["id"] == int(sys.argv[1]):
-                name = user["name"]
-                username = user["username"]
-        for todo in todos:
-            if todo["userId"] == int(sys.argv[1]):
-                total_tasks += 1
-                if todo["completed"] is True:
-                    completed_tasks += 1
-                    tasks.append(todo["title"])
+
+        todos_res = requests.get(todos_url)
+        todos = todos_res.json()
+        total_tasks = len(todos)
+
+        user_res = requests.get(user_url)
+        user = user_res.json()
+
+        name = user.get("name")
+        username = user.get("username")
+
+        [
+            tasks.append(todo["title"]) for todo in todos
+            if todo["completed"] is True
+
+        ]
+        completed_tasks = len(tasks)
 
         # Print to stdout
         print(f"Employee {name} is done with tasks"
@@ -45,25 +47,21 @@ if __name__ == "__main__":
                           'TASK_TITLE']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames,
                                     quoting=csv.QUOTE_ALL)
-            for i in todos:
-                row = {}
-                if i['userId'] == int(sys.argv[1]):
-                    row['USER_ID'] = i.get('userId')
-                    row['USERNAME'] = username
-                    row['TASK_COMPLETED_STATUS'] = i.get('completed')
-                    row['TASK_TITLE'] = i.get('title')
-                    writer.writerow(row)
+            [
+                writer.writerow({
+                    'USER_ID': str(todo.get('userId')),
+                    'USERNAME': username,
+                    'TASK_COMPLETED_STATUS': str(todo.get('completed')),
+                    'TASK_TITLE': todo.get('title')
+                }) for todo in todos
+            ]
 
         # Write to JSON
-        for todo in todos:
-            new_dict = {}
-            if todo.get("userId") == int(sys.argv[1]):
-                new_dict["task"] = todo.get("title")
-                new_dict["completed"] = todo.get("completed")
-                new_dict["username"] = username
-                rows.append(new_dict)
-        json_dict = {}
-        json_dict[user_id] = rows
-        json_obj = json.dumps(json_dict)
         with open(f"{user_id}.json", "w") as jsonfile:
-            jsonfile.write(json_obj)
+            json.dump({
+                user_id: [{
+                    "task": todo.get("title"),
+                    "completed": todo.get("completed"),
+                    "username": username
+                } for todo in todos]
+            }, jsonfile)
