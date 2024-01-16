@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-"""function that queries the Reddit API and returns the number
-of subscribers (not active users, total subscribers) for a given subreddit"""
+"""function that queries the Reddit API and returns sub
+"""
 
 import requests
 
@@ -16,8 +16,7 @@ def number_of_subscribers(subreddit):
     r = requests.get(url, headers=headers)
     if r.status_code == 200:
         data = r.json()
-        subs = data.get('data').get('subscribers')
-        if subs is None:
+        subname = data.get('data', {}).get('display_name', None)
+        if subname is None or subname.lower() != subreddit.lower():
             return 0
-    else:
-        return 0
+        return data.get('data', {}).get('subscribers', 0)
