@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """function that queries the Reddit API and returns sub
 """
+
 import requests
 
 
