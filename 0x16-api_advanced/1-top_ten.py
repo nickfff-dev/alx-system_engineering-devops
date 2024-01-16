@@ -11,15 +11,20 @@ def top_ten(subreddit):
                 AppleWebKit/537.36 (KHTML, like Gecko)\
                 Chrome/70.0.3538.77 Safari/537.36'}
     if subreddit is None or type(subreddit) is not str:
-        print(None)
+        print("None")
         return
     r = requests.get(url, headers=headers)
     if r.status_code == 200:
         data = r.json()
         if 'error' in data:
-            print(None)
+            print("None")
+            return
+        if len(data['data']['children']) == 0:
+            print("None")
             return
         for post in data['data']['children']:
             print(post['data']['title'])
+        return
     else:
-        print(None)
+        print("None")
+        return
