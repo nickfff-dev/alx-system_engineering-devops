@@ -15,7 +15,7 @@ def number_of_subscribers(subreddit):
                Chrome/70.0.3538.77 Safari/537.36'}
     if subreddit is None or type(subreddit) is not str:
         return 0
-    r = requests.get(url, headers=headers)
+    r = requests.get(url, headers=headers, allow_redirects=False)
     if r.status_code == 200:
         data = r.json()
         subname = data.get('data', {}).get('display_name', None)
