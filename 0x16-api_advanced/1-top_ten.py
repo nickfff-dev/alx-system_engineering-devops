@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Contain function that queries the Reddit API"""
 
+
 import requests
 
 
