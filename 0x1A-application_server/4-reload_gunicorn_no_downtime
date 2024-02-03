@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Find the Gunicorn master process ID
-MASTERPID=$(pgrep gunicorn | head -n 1)
-sudo kill -HUP "$MASTERPID"
+MAINPID=$(sudo systemctl show -p MainPID --value gunicorn)
+sudo kill -HUP "$MAINPID"
