@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Find the Gunicorn master process ID
 MASTER_PID=$(pgrep -f "gunicorn: master")
 
