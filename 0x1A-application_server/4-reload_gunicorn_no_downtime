@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
 # Find the Gunicorn master process ID
-MAINPID=$(sudo systemctl show -p MainPID --value gunicorn)
-sudo kill -HUP "$MAINPID"
-echo "Gunicorn has been reloaded successfully."
+sudo systemctl reload gunicorn
