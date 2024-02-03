@@ -11,4 +11,3 @@ fi
 # Send the HUP signal to the master process to gracefully reload Gunicorn
 kill -HUP "$MASTER_PID"
 
-echo "Gunicorn has been reloaded successfully."
